@@ -29,6 +29,7 @@ import {
 import { Badge } from "@food/components/ui/badge";
 import foodPattern from "@food/assets/food_pattern_background.png";
 import useNotificationInbox from "@food/hooks/useNotificationInbox";
+import { FOOD_THEME_COLOR, FOOD_THEME_HOVER } from "@food/constants/theme";
 
 const tabs = [
   {
@@ -42,11 +43,11 @@ const tabs = [
     icon: "https://cdn-icons-png.flaticon.com/512/3724/3724720.png",
     badge: "15 mins",
   },
-  {
+  /* {
     id: "milk",
     name: "ChotuuDudhwala",
     icon: "https://cdn-icons-png.flaticon.com/512/933/933854.png",
-  },
+  }, */
 ];
 
 const normalizeHex = (hex, fallback = "#8e24aa") => {
@@ -76,7 +77,7 @@ const quickTheme = (baseColor) => {
 };
 
 const foodTheme = (vegMode) => {
-  const base = vegMode ? "#2f7a46" : "#cc2532";
+  const base = vegMode ? "#2f7a46" : FOOD_THEME_COLOR;
   return {
     topBg: `linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%), ${base}`,
     accent: base,
@@ -164,6 +165,7 @@ export default function HomeHeader({
   onQuickTabIntent,
   bannerComponent,
   hideExtras = false,
+  disableSticky = false,
 }) {
   const navigate = useNavigate();
   const [isListening, setIsListening] = useState(false);
@@ -298,7 +300,7 @@ export default function HomeHeader({
 
   return (
     <motion.div
-      className={`relative transition-all duration-400 ${isFood
+      className={`relative transition-all duration-400 rounded-b-[36px] ${isFood
           ? "min-h-[280px] overflow-hidden"
           : "min-h-[120px] overflow-visible"
         }`}
@@ -540,20 +542,20 @@ export default function HomeHeader({
       </div>
 
       <div className={cn("relative z-10 pb-0 px-3 overflow-visible", isFood ? "pt-3" : "pt-0")}>
-        {isFood && isSticky && <div className="h-[46px] mb-2" />}
+        {isFood && (isSticky && !disableSticky) && <div className="h-[46px] mb-2" />}
         {isFood && !hideExtras && (
           <div 
             className={cn("flex items-center gap-2 mb-2", 
-              isSticky ? "fixed top-0 left-0 right-0 z-[100] px-4 py-2 pb-3 shadow-md backdrop-blur-xl border-b border-black/5 dark:border-white/5" : "relative w-full px-0"
+              (isSticky && !disableSticky) ? "fixed top-0 left-0 right-0 z-[100] px-4 py-2 pb-3 shadow-md backdrop-blur-xl border-b border-black/5 dark:border-white/5" : "relative w-full px-0"
             )}
-            style={{ backgroundColor: isSticky ? withAlpha(theme.accent, 0.85) : "transparent" }}
+            style={{ backgroundColor: (isSticky && !disableSticky) ? withAlpha(theme.accent, 0.85) : "transparent" }}
           >
             <div
               className="flex-1 rounded-[12px] h-[46px] flex items-center px-3 cursor-pointer relative overflow-hidden bg-white shadow-[0_6px_18px_rgba(15,23,42,0.10)] border-0 text-left"
               onClick={handleSearchFocus}
             >
-              <div className="absolute left-0 top-0 bottom-0 w-[2.5px] rounded-l-[12px] bg-gradient-to-b from-[#cc2532] to-[#a81e29]" />
-              <Search className="h-[16px] w-[16px] ml-1.5 mr-2 flex-shrink-0 text-[#cc2532]" strokeWidth={2.3} />
+              <div className="absolute left-0 top-0 bottom-0 w-[2.5px] rounded-l-[12px]" style={{ background: theme.accent }} />
+              <Search className="h-[16px] w-[16px] ml-1.5 mr-2 flex-shrink-0" style={{ color: theme.accent }} strokeWidth={2.3} />
               <div className="flex-1 overflow-hidden relative h-[20px]">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -569,16 +571,19 @@ export default function HomeHeader({
                 </AnimatePresence>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-[1px] h-[16px] bg-red-200" />
+                <div className="w-[1px] h-[16px] bg-gray-200" />
                 <button
                   type="button"
                   onClick={handleVoiceSearch}
                   className={cn(
                     "h-[28px] w-[28px] rounded-full flex items-center justify-center transition-all",
-                    isListening ? "bg-red-500 scale-110 animate-pulse" : "bg-red-50 hover:bg-red-100"
+                    isListening ? "scale-110 animate-pulse" : ""
                   )}
+                  style={{
+                    backgroundColor: isListening ? theme.accent : withAlpha(theme.accent, 0.1),
+                  }}
                 >
-                  <Mic className={cn("h-[14px] w-[14px]", isListening ? "text-white" : "text-[#cc2532]")} strokeWidth={2.3} />
+                  <Mic className="h-[14px] w-[14px]" style={{ color: isListening ? '#ffffff' : theme.accent }} strokeWidth={2.3} />
                 </button>
               </div>
             </div>

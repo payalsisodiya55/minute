@@ -108,7 +108,6 @@ import { getCachedSettings } from "@/modules/common/utils/businessSettings";
 import { useServiceability } from "@/modules/common/hooks/useServiceability";
 import ServiceUnavailable from "@/modules/common/components/ServiceUnavailable";
 import bakeryIcon from "@food/assets/explore more icons/bakery.png";
-import customLogo from "@food/assets/customl_ogo.png";
 
 // Extracted Sub-components
 const BannerSection = lazy(() => import("@food/components/user/home/BannerSection"));
@@ -172,6 +171,7 @@ export default function Home() {
   const [quickThemeColor, setQuickThemeColor] = useState("#cc2532");
   const [showToast, setShowToast] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [showStickyCategories, setShowStickyCategories] = useState(false);
 
   const heroShellRef = useRef(null);
   const restaurantLoadMoreRef = useRef(null);
@@ -206,23 +206,11 @@ export default function Home() {
 
   const finalExploreItemsFiltered = useMemo(() => {
     const items = landing?.exploreMore || [];
-    const settings = getCachedSettings();
-    const isHomeBakeryEnabled = settings?.modules?.homeBakery;
-    if (isHomeBakeryEnabled) {
-      const hasBakery = items.some(item => item.id === "home-bakery" || item.href?.includes("bakery"));
-      if (!hasBakery) {
-        return [
-          ...items,
-          {
-            id: "home-bakery",
-            label: "Home Bakery",
-            href: "/food/user/bakery/list",
-            image: bakeryIcon,
-          }
-        ];
-      }
-    }
-    return items;
+    return items.filter(item => 
+      item.id !== "home-bakery" && 
+      !item.href?.includes("bakery") && 
+      !item.label?.toLowerCase().includes("bakery")
+    );
   }, [landing?.exploreMore]);
 
   // --- UI Effects ---
@@ -238,6 +226,33 @@ export default function Home() {
     }, 2000);
     return () => clearInterval(interval);
   }, [activeTab]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth >= 768) {
+        setShowStickyCategories(false);
+        return;
+      }
+      const categoryRailElement = document.getElementById("category-rail-section");
+      if (categoryRailElement) {
+        const rect = categoryRailElement.getBoundingClientRect();
+        // Toggle sticky state based on category rail bottom position
+        setShowStickyCategories(rect.bottom <= 0);
+      } else {
+        setShowStickyCategories(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    // Initial check
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
 
   const activeBannerImages = useMemo(() => banners?.images || [], [banners?.images]);
 
@@ -325,6 +340,7 @@ export default function Home() {
             headerVideoUrl={landing.videoUrl}
             quickThemeColor={quickThemeColor}
             hideExtras={hideExtras}
+            disableSticky={showStickyCategories}
             bannerComponent={
               <div className="h-[130px] sm:h-36 md:h-44 mt-3 relative z-10 w-full bg-transparent" />
             }
@@ -356,15 +372,17 @@ export default function Home() {
             transition={{ duration: 0.16, ease: "easeOut" }}
             className="bg-white dark:bg-[#0a0a0a]"
           >
-            <Suspense fallback={<CategoryChipRowSkeleton className="py-1" />}>
-              <CategoryRail
-                displayCategories={categories.display}
-                showCategorySkeleton={categories.loading}
-                navigate={navigate}
-                setShowAllCategoriesModal={setShowAllCategoriesModal}
-                backendOrigin={BACKEND_ORIGIN}
-              />
-            </Suspense>
+            <div id="category-rail-section">
+              <Suspense fallback={<CategoryChipRowSkeleton className="py-1" />}>
+                <CategoryRail
+                  displayCategories={categories.display}
+                  showCategorySkeleton={categories.loading}
+                  navigate={navigate}
+                  setShowAllCategoriesModal={setShowAllCategoriesModal}
+                  backendOrigin={BACKEND_ORIGIN}
+                />
+              </Suspense>
+            </div>
 
             <Suspense fallback={null}>
               <RecommendedSection recommendedForYouRestaurants={meta.recommended} />
@@ -407,56 +425,6 @@ export default function Home() {
               />
             </Suspense>
 
-            <div className="px-4 py-4 md:py-6 mt-2 mx-auto max-w-7xl">
-              <motion.div 
-                whileHover={{ scale: 1.01 }}
-                className="bg-gradient-to-r from-fuchsia-600 via-pink-500 to-rose-500 rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col-reverse lg:flex-row items-center justify-between gap-6 sm:gap-8 shadow-[0_8px_30px_rgb(236,72,153,0.3)] relative overflow-hidden"
-              >
-                {/* Background Decor */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-
-                {/* Left Side: Text Content & Button */}
-                <div className="flex-1 z-10 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 w-full">
-                  <div className="flex flex-col gap-1 sm:gap-2">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white drop-shadow-md tracking-tight leading-tight">
-                      Custom Cake Chahiye? <br className="hidden lg:block" />
-                      <span className="text-yellow-200">Bas Chotuu Ko Bataiye!</span> 🎂
-                    </h3>
-                    <p className="text-white/95 text-sm sm:text-base font-semibold drop-shadow-sm">
-                      Dream it, we bake it! ✨
-                    </p>
-                  </div>
-                  
-                  <Button asChild className="mt-2 bg-white text-pink-600 hover:bg-pink-50 hover:text-pink-700 rounded-xl shadow-[0_6px_15px_rgba(0,0,0,0.1)] border-0 px-6 py-5 w-full sm:w-auto text-base font-bold transition-all hover:-translate-y-1 active:scale-95 group whitespace-nowrap">
-                    <Link to="/food/user/custom-cakes" className="flex items-center justify-center gap-2">
-                      Explore Now
-                      <motion.div
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                        className="text-lg"
-                      >
-                        🚀
-                      </motion.div>
-                    </Link>
-                  </Button>
-                </div>
-                
-                {/* Right Side: Logo Container (No box, larger) */}
-                <motion.div 
-                  initial={{ rotate: -5, scale: 0.9 }}
-                  animate={{ rotate: 0, scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                  className="z-10 w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 shrink-0 flex items-center justify-center pointer-events-none"
-                >
-                  <img 
-                    src={customLogo} 
-                    alt="Custom Cake Logo" 
-                    className="w-full h-full object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.25)]"
-                  />
-                </motion.div>
-              </motion.div>
-            </div>
 
             <Suspense fallback={<RestaurantGridSkeleton count={3} />}>
               <RestaurantGrid
@@ -568,6 +536,42 @@ export default function Home() {
 
       {activeTab === "food" && hasFoodCartItems && !hideExtras && <Suspense fallback={null}><MiniCart /></Suspense>}
       {!hideExtras && <Suspense fallback={null}><OrderTrackingCard hasBottomNav /></Suspense>}
+
+      {/* Sticky Categories & Filters Header */}
+      <AnimatePresence>
+        {showStickyCategories && (
+          <motion.div
+            initial={{ y: -120, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -120, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="md:hidden fixed top-0 left-0 right-0 z-[150] bg-white dark:bg-[#1a1a1a] shadow-[0_4px_12px_rgba(0,0,0,0.08)] border-b border-gray-100 dark:border-gray-800 pt-4 pb-4 flex flex-col gap-2"
+          >
+            {/* Category horizontal rail */}
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide px-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {categories.display.map((category, index) => (
+                <Link
+                  key={category.id || index}
+                  to={`/user/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="flex-shrink-0 flex flex-col items-center gap-1 group w-[92px]"
+                >
+                  <div className="w-[72px] h-[72px] rounded-full overflow-hidden shadow-sm border border-gray-100 transition-transform group-hover:scale-105 bg-white">
+                    <OptimizedImage
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover"
+                      backendOrigin={BACKEND_ORIGIN}
+                    />
+                  </div>
+                  <span className="text-[12px] font-black text-gray-700 dark:text-gray-300 truncate w-full text-center uppercase tracking-wide">
+                    {category.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

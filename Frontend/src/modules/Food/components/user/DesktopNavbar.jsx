@@ -386,45 +386,6 @@ export default function DesktopNavbar({ showLogo = true, hideExtras = false }) {
                                 )}
                             </Link>
 
-                            {/* Bakery Tab */}
-                            <Link
-                                to="/food/user/bakery/list"
-                                className={`flex flex-col items-center gap-1 px-2 py-1 transition-colors relative group ${isBakery
-                                    ? "text-[#cc2532] dark:text-[#cc2532]"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-[#cc2532] dark:hover:text-[#cc2532]"
-                                    }`}
-                            >
-                                <span className="text-sm font-bold tracking-wide uppercase">Bakery</span>
-                                {isBakery && (
-                                    <motion.div
-                                        layoutId="navIndicator"
-                                        className="absolute -bottom-3 left-0 right-0 h-0.5 bg-[#cc2532] dark:bg-[#cc2532]"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}
-                                    />
-                                )}
-                            </Link>
-
-                            {/* Dudhwala Tab */}
-                            <Link
-                                to="/dudhwala"
-                                className={`flex flex-col items-center gap-1 px-2 py-1 transition-colors relative group ${isDudhwala
-                                    ? "text-[#cc2532] dark:text-[#cc2532]"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-[#cc2532] dark:hover:text-[#cc2532]"
-                                    }`}
-                            >
-                                <span className="text-sm font-bold tracking-wide uppercase">Dudhwala</span>
-                                {isDudhwala && (
-                                    <motion.div
-                                        layoutId="navIndicator"
-                                        className="absolute -bottom-3 left-0 right-0 h-0.5 bg-[#cc2532] dark:bg-[#cc2532]"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}
-                                    />
-                                )}
-                            </Link>
 
                             {/* Profile Tab */}
                             <Link
