@@ -302,7 +302,7 @@ export default function HomeHeader({
     <motion.div
       className={`relative transition-all duration-400 ${isFood
           ? "rounded-b-[36px] min-h-[345px] overflow-hidden"
-          : "rounded-b-none min-h-[120px] overflow-visible"
+          : "rounded-b-none min-h-[88px] overflow-visible"
         }`}
       style={{ background: theme.topBg, color: theme.text }}
     >
@@ -338,7 +338,7 @@ export default function HomeHeader({
 
 
 
-      <div className="flex items-center justify-between px-5 pt-4 mb-2 relative z-10">
+      <div className="flex items-center justify-between px-5 pt-5 mb-2 relative z-10">
         <button
           type="button"
           className="flex items-start gap-2 cursor-pointer flex-1 min-w-0 bg-transparent border-0 p-0 text-left outline-none"

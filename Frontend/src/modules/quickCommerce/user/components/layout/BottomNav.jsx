@@ -33,9 +33,9 @@ const BottomNav = () => {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-[500] md:hidden transition-all duration-300">
+        <div className="fixed bottom-4 left-4 right-4 z-[500] md:hidden transition-all duration-300">
             <DraggableModuleSwitcher />
-            <div className="bg-white/80 dark:bg-card/80 backdrop-blur-xl border-t border-gray-100 dark:border-border flex items-center justify-around h-[70px] shadow-[0_-8px_30px_rgba(0,0,0,0.06)] px-4 pb-[env(safe-area-inset-bottom)]">
+            <div className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-neutral-800/80 flex items-center justify-around py-1.5 px-2 gap-1">
                 {navItems.map((item) => {
                     const isActive = isActivePath(item.path);
 
@@ -43,46 +43,36 @@ const BottomNav = () => {
                         <Link
                             key={item.path}
                             to={item.path}
-                            className="flex-1 flex flex-col items-center justify-center h-full relative group transition-all"
-                        >
-                            <div className="flex flex-col items-center justify-center relative">
-                                <motion.div
-                                    animate={{
-                                        y: isActive ? -2 : 0,
-                                        scale: isActive ? 1.1 : 1
-                                    }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                                >
-                                    <item.icon
-                                        size={24}
-                                        strokeWidth={isActive ? 2.5 : 2}
-                                        className={cn(
-                                            "transition-colors duration-300",
-                                            isActive ? "text-[#cc2532]" : "text-gray-400 dark:text-slate-500"
-                                        )}
-                                    />
-                                </motion.div>
-
-                                <motion.span
-                                    animate={{
-                                        y: isActive ? 1 : 0
-                                    }}
-                                    className={cn(
-                                        "text-[10px] font-bold tracking-tight mt-1 transition-colors duration-300",
-                                        isActive ? "text-[#cc2532]" : "text-gray-400 dark:text-slate-500"
-                                    )}
-                                >
-                                    {item.label}
-                                </motion.span>
-                            </div>
-
-                            {isActive && (
-                                <motion.div
-                                    layoutId="topLine"
-                                    className="absolute -top-[1px] w-8 h-[3px] bg-[#cc2532] rounded-full"
-                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                />
+                            className={cn(
+                                "flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 px-2.5 rounded-full transition-all duration-200 relative group",
+                                isActive ? "bg-[#FE730E]/10" : ""
                             )}
+                        >
+                            <motion.div
+                                animate={{
+                                    scale: isActive ? 1.05 : 1
+                                }}
+                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                                className="flex items-center justify-center"
+                            >
+                                <item.icon
+                                    size={20}
+                                    strokeWidth={isActive ? 2.5 : 2}
+                                    className={cn(
+                                        "transition-colors duration-300",
+                                        isActive ? "text-[#FE730E]" : "text-gray-500 dark:text-gray-400"
+                                    )}
+                                />
+                            </motion.div>
+
+                            <span
+                                className={cn(
+                                    "text-[9px] font-black tracking-wider uppercase transition-colors duration-300",
+                                    isActive ? "text-[#FE730E]" : "text-gray-500 dark:text-gray-400"
+                                )}
+                            >
+                                {item.label}
+                            </span>
                         </Link>
                     );
                 })}

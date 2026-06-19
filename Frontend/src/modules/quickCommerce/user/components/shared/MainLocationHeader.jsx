@@ -427,7 +427,7 @@ const MainLocationHeader = ({
     value > 150 ? "none" : "block",
   );
 
-  const headerTopPadding = embedded ? 16 : rawHeaderTopPadding;
+  const headerTopPadding = embedded ? 4 : rawHeaderTopPadding;
   const headerBottomPadding = embedded ? 4 : rawHeaderBottomPadding;
   const headerRoundness = embedded ? 0 : rawHeaderRoundness;
   const bgOpacity = embedded ? 1 : rawBgOpacity;
