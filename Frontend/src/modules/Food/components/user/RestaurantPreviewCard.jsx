@@ -365,7 +365,15 @@ export default function RestaurantPreviewCard({
       </div>
 
       {/* See All Button Section */}
-      <div className="border-t border-gray-100 dark:border-gray-800/80 pt-2.5 mt-auto flex justify-end">
+      <div className="border-t border-gray-100 dark:border-gray-800/80 pt-2.5 mt-auto flex items-center justify-between">
+        {availability.isOpen && availability.closingCountdownLabel ? (
+          <div className="flex items-center gap-1.5 rounded-full border border-amber-100 bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-700">
+            <Timer className="h-3.5 w-3.5 flex-shrink-0 text-amber-600" strokeWidth={2.5} />
+            <span>{availability.closingCountdownLabel}</span>
+          </div>
+        ) : (
+          <div />
+        )}
         <Link
           to={`/user/restaurants/${restaurantSlug}`}
           className="text-xs font-bold text-[#FE730E] hover:text-[#e06208] flex items-center gap-0.5 hover:opacity-80 active:scale-95 transition-all"

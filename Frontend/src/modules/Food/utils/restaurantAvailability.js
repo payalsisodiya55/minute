@@ -127,7 +127,6 @@ const formatClosingCountdown = (minutesUntilClose, closingTime) => {
 
   return `Closes in ${hours}h ${minutes}m`
 }
-
 export const getRestaurantAvailabilityStatus = (restaurant, now = new Date(), options = {}) => {
   if (!restaurant) {
     return {
@@ -139,6 +138,29 @@ export const getRestaurantAvailabilityStatus = (restaurant, now = new Date(), op
     }
   }
 
+  const dayName = DAY_NAMES[now.getDay()]
+  const todayTiming = getTodayTiming(restaurant, dayName)
+  
+  const openingTime = todayTiming?.open || restaurant?.openingTime || null
+  const closingTime = todayTiming?.close || restaurant?.closingTime || null
+  const is24x7 = todayTiming?.is24x7 || restaurant?.is24x7 || false
+  
+  let minutesUntilClose = null
+  let closingCountdownLabel = null
+  
+  if (!is24x7 && openingTime && closingTime) {
+    const nowMinutes = now.getHours() * 60 + now.getMinutes()
+    const openingMinutes = parseTimeToMinutes(openingTime)
+    const closingMinutes = parseTimeToMinutes(closingTime)
+    
+    if (openingMinutes !== null && closingMinutes !== null) {
+      minutesUntilClose = getMinutesUntilClosing(nowMinutes, openingMinutes, closingMinutes)
+      if (minutesUntilClose !== null) {
+        closingCountdownLabel = formatClosingCountdown(minutesUntilClose, closingTime)
+      }
+    }
+  }
+
   // TEMPORARY APP STORE REVIEW FIX:
   // Force all restaurants to be considered open and online 24/7.
   // This prevents reviewers in different timezones from seeing closed states.
@@ -147,10 +169,10 @@ export const getRestaurantAvailabilityStatus = (restaurant, now = new Date(), op
     isActive: true,
     isAcceptingOrders: true,
     isWithinTimings: true,
-    openingTime: restaurant?.openingTime || null,
-    closingTime: restaurant?.closingTime || null,
-    minutesUntilClose: null,
-    closingCountdownLabel: null,
+    openingTime,
+    closingTime,
+    minutesUntilClose,
+    closingCountdownLabel,
     reason: "open",
   }
 }

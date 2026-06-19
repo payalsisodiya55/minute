@@ -11,6 +11,7 @@ import { useLocation } from "@food/hooks/useLocation"
 import { useZone } from "@food/hooks/useZone"
 import { useCart } from "@food/context/CartContext"
 import PageNavbar from "@food/components/user/PageNavbar"
+import MiniCart from "@food/components/user/MiniCart"
 import offerImage from "@food/assets/offerimage.png"
 import AddToCartAnimation from "@food/components/user/AddToCartAnimation"
 import OptimizedImage from "@food/components/OptimizedImage"
@@ -1566,6 +1567,9 @@ export default function Under250() {
 
       {/* Add to Cart Animation */}
       <AddToCartAnimation dynamicBottom={viewCartButtonBottom} />
+
+      {/* Floating Bottom Cart Bar */}
+      <MiniCart />
     </div>
   )
 }
