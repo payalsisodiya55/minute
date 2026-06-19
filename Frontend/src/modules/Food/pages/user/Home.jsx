@@ -565,8 +565,8 @@ export default function Home() {
               {loadingDishesUnder250 ? (
                 <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} className="flex-shrink-0 w-[180px] flex flex-col gap-2">
-                      <div className="w-full h-[140px] rounded-2xl bg-gray-100 dark:bg-neutral-800 animate-pulse" />
+                    <div key={i} className="flex-shrink-0 w-[150px] flex flex-col gap-2">
+                      <div className="w-full h-[115px] rounded-2xl bg-gray-100 dark:bg-neutral-800 animate-pulse" />
                       <div className="h-3 w-12 bg-gray-100 dark:bg-neutral-800 animate-pulse rounded" />
                       <div className="h-4 w-full bg-gray-100 dark:bg-neutral-800 animate-pulse rounded" />
                       <div className="h-4 w-1/2 bg-gray-100 dark:bg-neutral-800 animate-pulse rounded" />
@@ -581,10 +581,10 @@ export default function Home() {
                     return (
                       <div
                         key={dish.id}
-                        className="flex-shrink-0 w-[180px] flex flex-col gap-2 group"
+                        className="flex-shrink-0 w-[150px] flex flex-col gap-2 group"
                       >
                         {/* Image container */}
-                        <div className="relative w-full h-[140px] rounded-2xl bg-gray-50 border border-gray-100 dark:border-gray-800">
+                        <div className="relative w-full h-[115px] rounded-2xl bg-gray-50 border border-gray-100 dark:border-gray-800">
                           <div className="w-full h-full rounded-2xl overflow-hidden">
                             <img
                               src={dish.image}
