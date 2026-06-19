@@ -15,7 +15,7 @@ const coreSrc = path.resolve(__dirname, './src/core')
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
-    // Triggering dev server refresh to clear module cache
+    // Triggering dev server refresh to clear module cache - Reloaded
     alias: {
       // More specific first so @food/api/* resolves to services (no backend)
       '@food/api/axios': path.resolve(servicesApi, 'axios.js'),
