@@ -300,9 +300,9 @@ export default function HomeHeader({
 
   return (
     <motion.div
-      className={`relative transition-all duration-400 rounded-b-[36px] ${isFood
-          ? "min-h-[280px] overflow-hidden"
-          : "min-h-[120px] overflow-visible"
+      className={`relative transition-all duration-400 ${isFood
+          ? "rounded-b-[36px] min-h-[280px] overflow-hidden"
+          : "rounded-b-none min-h-[120px] overflow-visible"
         }`}
       style={{ background: theme.topBg, color: theme.text }}
     >
