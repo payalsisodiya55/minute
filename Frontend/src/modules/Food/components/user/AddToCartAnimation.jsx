@@ -338,7 +338,7 @@ export default function AddToCartAnimation({
       // Step 1: Scale up with glow
       tl.to(linkRef.current, {
         scale: 1.08,
-        boxShadow: '0 10px 25px rgba(235, 89, 14, 0.4)',
+        boxShadow: '0 10px 25px rgba(12, 131, 31, 0.4)',
         duration: 0.15,
         ease: 'power2.out',
         transformOrigin: 'center center',
@@ -347,7 +347,7 @@ export default function AddToCartAnimation({
         // Step 2: Bounce back
         .to(linkRef.current, {
           scale: 1.0,
-          boxShadow: '0 4px 12px rgba(235, 89, 14, 0.3)',
+          boxShadow: '0 4px 12px rgba(12, 131, 31, 0.3)',
           duration: 0.2,
           ease: 'power2.inOut',
         })
@@ -454,7 +454,7 @@ export default function AddToCartAnimation({
                 debugLog('View cart clicked, navigating to:', linkTo);
                 navigate(linkTo);
               }}
-              className={`bg-gradient-to-r from-[#D94F0C] via-[#EB590E] to-[#D94F0C] text-white rounded-full shadow-xl shadow-orange-900/30 px-3 py-2 flex items-center gap-2 hover:from-[#D94F0C] hover:via-[#EB590E] hover:to-[#D94F0C] transition-all duration-300 pointer-events-auto border border-orange-800/30 backdrop-blur-sm cursor-pointer ${pillClassName}`}
+              className={`bg-gradient-to-r from-[#0c831f] via-[#109f26] to-[#0c831f] text-white rounded-full shadow-xl shadow-green-900/30 px-3 py-2 flex items-center gap-2 hover:from-[#0c831f] hover:via-[#109f26] hover:to-[#0c831f] transition-all duration-300 pointer-events-auto border border-green-800/30 backdrop-blur-sm cursor-pointer ${pillClassName}`}
             >
               {/* Left: Product thumbnails */}
               <div className="flex items-center -space-x-4">

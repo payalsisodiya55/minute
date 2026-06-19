@@ -37,6 +37,7 @@ import {
   AlertCircle,
   Loader2,
   Plus,
+  Minus,
   Check,
   Share2,
   Cake,
@@ -156,7 +157,7 @@ export default function Home() {
   const { openSearch, closeSearch, searchValue, setSearchValue } = useSearchOverlay();
   const { openLocationSelector } = useLocationSelector();
   const { vegMode, setVegMode: setVegModeContext, isFavorite, addFavorite, removeFavorite, getDefaultAddress } = useProfile();
-  const { cart, addToCart, updateQuantity } = useCart();
+  const { cart, addToCart, updateQuantity, getCartItem } = useCart();
   const hasFoodCartItems = useMemo(
     () => cart.some((item) => (item?.orderType || "food") !== "quick"),
     [cart],
@@ -401,15 +402,29 @@ export default function Home() {
     else navigate("/food/user/search");
   }, [activeTab, navigate]);
 
-  const handleAddToCart = (dish) => {
+  const handleAddToCart = (dish, event = null) => {
     if (isEffectiveOutOfService) {
       toast.error("You are outside the service zone. Please select a location within the service area.");
       return;
     }
 
-    const existing = cart.find(item => item.id === dish.id);
+    const rect = event ? event.currentTarget.getBoundingClientRect() : null;
+    const sourcePosition = rect ? {
+      x: rect.left + rect.width / 2 + window.scrollX,
+      y: rect.top + rect.height / 2 + window.scrollY,
+      viewportX: rect.left + rect.width / 2,
+      viewportY: rect.top + rect.height / 2,
+      scrollX: window.scrollX,
+      scrollY: window.scrollY
+    } : null;
+
+    const existing = getCartItem(dish.id);
     if (existing) {
-      updateQuantity(dish.id, existing.quantity + 1);
+      updateQuantity(dish.id, existing.quantity + 1, sourcePosition, {
+        id: dish.id,
+        name: dish.name,
+        imageUrl: dish.image,
+      });
       toast.success(`Increased ${dish.name} quantity to ${existing.quantity + 1}`);
     } else {
       const result = addToCart({
@@ -420,11 +435,41 @@ export default function Home() {
         restaurant: dish.restaurant,
         description: dish.description || "",
         originalPrice: dish.originalPrice || dish.price,
-      });
+      }, sourcePosition);
       if (result?.ok === false) {
         toast.error(result.error || 'Cannot add item from different restaurant. Please clear cart first.');
       } else {
         toast.success(`Added ${dish.name} to cart!`);
+      }
+    }
+  };
+
+  const handleIncreaseQuantity = (dish, event = null) => {
+    handleAddToCart(dish, event);
+  };
+
+  const handleDecreaseQuantity = (dish, event = null) => {
+    const rect = event ? event.currentTarget.getBoundingClientRect() : null;
+    const sourcePosition = rect ? {
+      x: rect.left + rect.width / 2 + window.scrollX,
+      y: rect.top + rect.height / 2 + window.scrollY,
+      viewportX: rect.left + rect.width / 2,
+      viewportY: rect.top + rect.height / 2,
+      scrollX: window.scrollX,
+      scrollY: window.scrollY
+    } : null;
+
+    const existing = getCartItem(dish.id);
+    if (existing) {
+      updateQuantity(dish.id, existing.quantity - 1, sourcePosition, {
+        id: dish.id,
+        name: dish.name,
+        imageUrl: dish.image,
+      });
+      if (existing.quantity - 1 === 0) {
+        toast.success(`Removed ${dish.name} from cart`);
+      } else {
+        toast.success(`Decreased ${dish.name} quantity to ${existing.quantity - 1}`);
       }
     }
   };
@@ -560,14 +605,46 @@ export default function Home() {
                             <span>{dish.rating}</span>
                           </div>
 
-                          {/* Plus Button Overlay (Inside the image) */}
-                          <button
-                            type="button"
-                            onClick={() => handleAddToCart(dish)}
-                            className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center border border-[#FE730E]/20 transition-all active:scale-90"
-                          >
-                            <Plus className="h-4 w-4" style={{ color: "#FE730E" }} strokeWidth={3} />
-                          </button>
+                          {/* Plus Button or Quantity Selector Overlay (Inside the image) */}
+                          {(() => {
+                            const cartItem = getCartItem(dish.id);
+                            const quantity = cartItem ? cartItem.quantity : 0;
+                            if (quantity > 0) {
+                              return (
+                                <div
+                                  className="absolute bottom-2 right-2 h-8 rounded-full bg-white shadow-md flex items-center justify-between border border-[#FE730E]/20 px-1.5 gap-1.5"
+                                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                                >
+                                  <button
+                                    type="button"
+                                    onClick={(e) => handleDecreaseQuantity(dish, e)}
+                                    className="w-5 h-5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
+                                  >
+                                    <Minus className="h-3.5 w-3.5" strokeWidth={3.5} />
+                                  </button>
+                                  <span className="text-[12px] font-black text-gray-950 min-w-[12px] text-center select-none">
+                                    {quantity}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={(e) => handleIncreaseQuantity(dish, e)}
+                                    className="w-5 h-5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
+                                  >
+                                    <Plus className="h-3.5 w-3.5" strokeWidth={3.5} />
+                                  </button>
+                                </div>
+                              );
+                            }
+                            return (
+                              <button
+                                type="button"
+                                onClick={(e) => handleAddToCart(dish, e)}
+                                className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center border border-[#FE730E]/20 transition-all active:scale-90"
+                              >
+                                <Plus className="h-4 w-4" style={{ color: "#FE730E" }} strokeWidth={3} />
+                              </button>
+                            );
+                          })()}
                         </div>
 
                         {/* Content info */}
