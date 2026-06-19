@@ -500,7 +500,7 @@ export default function Home() {
             hideExtras={hideExtras}
             disableSticky={showStickyCategories}
             bannerComponent={
-              <div className="h-[130px] sm:h-36 md:h-44 mt-3 relative z-10 w-full bg-transparent" />
+              <div className="h-[170px] sm:h-36 md:h-44 mt-3 relative z-10 w-full bg-transparent" />
             }
           />
         )}

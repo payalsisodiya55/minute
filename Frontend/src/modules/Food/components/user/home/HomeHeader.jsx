@@ -66,7 +66,7 @@ const withAlpha = (hex, alpha) => {
 const quickTheme = (baseColor) => {
   const base = normalizeHex(baseColor, "#2f7a46");
   return {
-    topBg: `linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 100%), ${base}`,
+    topBg: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 100%), ${withAlpha(base, 0.82)}`,
     accent: base,
     text: "#ffffff",
     activeBg: base,
@@ -79,7 +79,7 @@ const quickTheme = (baseColor) => {
 const foodTheme = (vegMode) => {
   const base = vegMode ? "#2f7a46" : FOOD_THEME_COLOR;
   return {
-    topBg: `linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%), ${base}`,
+    topBg: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 100%), ${withAlpha(base, 0.82)}`,
     accent: base,
     text: "#ffffff",
     activeBg: base,
@@ -92,7 +92,7 @@ const foodTheme = (vegMode) => {
 const milkTheme = () => {
   const base = "#0ea5e9"; // Dairy themed light blue
   return {
-    topBg: `linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 100%), ${base}`,
+    topBg: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 100%), ${withAlpha(base, 0.82)}`,
     accent: base,
     text: "#ffffff",
     activeBg: base,
@@ -301,13 +301,13 @@ export default function HomeHeader({
   return (
     <motion.div
       className={`relative transition-all duration-400 ${isFood
-          ? "rounded-b-[36px] min-h-[280px] overflow-hidden"
+          ? "rounded-b-[36px] min-h-[370px] overflow-hidden"
           : "rounded-b-none min-h-[120px] overflow-visible"
         }`}
       style={{ background: theme.topBg, color: theme.text }}
     >
       {headerVideoUrl && (
-        <div className="absolute inset-x-0 bottom-0 z-0 flex justify-center overflow-hidden" style={{ top: '130px' }}>
+        <div className="absolute inset-x-0 top-0 bottom-0 z-0 flex justify-center overflow-hidden">
           <video
             ref={videoRef}
             src={headerVideoUrl}
@@ -454,6 +454,7 @@ export default function HomeHeader({
         </div>
       </div>
 
+      {/* Tabs removed as requested
       <div className="px-3 pt-1 flex items-end justify-start gap-1 relative z-10">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
@@ -498,7 +499,6 @@ export default function HomeHeader({
                   backdropFilter: isActive ? undefined : "blur(12px)",
                 }}
               >
-                {/* Continuous Curve Effect (Swiggy Style) */}
                 {isActive && (
                   <>
                     <div
@@ -540,6 +540,7 @@ export default function HomeHeader({
           );
         })}
       </div>
+      */}
 
       <div className={cn("relative z-10 pb-0 px-3 overflow-visible", isFood ? "pt-3" : "pt-0")}>
         {isFood && (isSticky && !disableSticky) && <div className="h-[46px] mb-2" />}

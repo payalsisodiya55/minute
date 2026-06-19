@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { Tag, User, Truck, Cake } from "lucide-react"
+import { Tag, User, Truck, Cake, ChevronRight } from "lucide-react"
 import { useAuth } from "@core/context/AuthContext"
 import DraggableModuleSwitcher from "../../../common/components/DraggableModuleSwitcher"
 import { FOOD_VEG_COLOR } from "@food/constants/theme"
@@ -65,7 +65,7 @@ export default function BottomNavigation() {
       <div
         className="relative bg-white dark:bg-[#1a1a1a] border-t border-gray-200 dark:border-gray-800 shadow-lg"
       >
-      <div className="flex items-center justify-around h-auto px-2 sm:px-4">
+      <div className="flex items-center justify-around h-auto px-2 sm:px-4 py-1.5">
         {/* Delivery Tab */}
         <Link
           to="/food/user"
@@ -138,6 +138,18 @@ export default function BottomNavigation() {
           {isProfile && (
             <div className="absolute top-0 left-0 right-0 h-0.5 rounded-b-full" style={{ backgroundColor: FOOD_VEG_COLOR }} />
           )}
+        </Link>
+
+        {/* Divider */}
+        <div className="h-8 w-px bg-gray-300 dark:bg-gray-700" />
+
+        {/* Instamart Link Button */}
+        <Link
+          to="/quick"
+          className="flex items-center gap-0.5 bg-[#FE730E] text-white px-3 py-1.5 rounded-full font-black text-[11px] shadow-sm transition-all active:scale-95 hover:opacity-90 tracking-wide uppercase shrink-0"
+        >
+          <span>Instamart</span>
+          <ChevronRight className="h-3 w-3" strokeWidth={4} />
         </Link>
       </div>
       </div>
