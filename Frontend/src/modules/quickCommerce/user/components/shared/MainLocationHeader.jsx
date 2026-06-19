@@ -80,8 +80,8 @@ const ICON_COMPONENTS = {
 };
 
 const serviceTabs = [
-  { name: "Chotuu FoodWala" },
-  { name: "ChotuuMart" },
+  { name: "Food" },
+  { name: "Instamart" },
   { name: "Chotuu Dudhwala" },
 ];
 
@@ -277,7 +277,7 @@ const MainLocationHeader = ({
   const { isOpen: isProductDetailOpen } = useProductDetail();
   const { cartCount } = useCart();
   const { settings } = useSettings();
-  const appName = settings?.appName || "ChotuuMart";
+  const appName = settings?.appName || "Instamart";
   const logoUrl = settings?.logoUrl || LogoImage;
   const navigate = useNavigate();
   const routerLocation = useRouterLocation();

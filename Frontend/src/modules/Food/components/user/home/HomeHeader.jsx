@@ -34,12 +34,12 @@ import { FOOD_THEME_COLOR, FOOD_THEME_HOVER } from "@food/constants/theme";
 const tabs = [
   {
     id: "food",
-    name: "ChotuuFood",
+    name: "Food",
     icon: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
   },
   {
     id: "quick",
-    name: "ChotuuMart",
+    name: "Instamart",
     icon: "https://cdn-icons-png.flaticon.com/512/3724/3724720.png",
     badge: "15 mins",
   },

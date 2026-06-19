@@ -517,7 +517,7 @@ export default function Home() {
           >
             <ServiceUnavailable 
               type={!isModuleEnabled ? "module" : "zone"} 
-              moduleName={activeTab === 'food' ? 'Food Delivery' : activeTab === 'quick' ? 'ChotuuMart' : 'ChotuuDudhwala'}
+              moduleName={activeTab === 'food' ? 'Food Delivery' : activeTab === 'quick' ? 'Instamart' : 'ChotuuDudhwala'}
               onRefresh={() => window.location.reload()}
             />
           </motion.div>
