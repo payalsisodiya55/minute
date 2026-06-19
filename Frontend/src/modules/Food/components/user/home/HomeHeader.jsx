@@ -301,7 +301,7 @@ export default function HomeHeader({
   return (
     <motion.div
       className={`relative transition-all duration-400 ${isFood
-          ? "rounded-b-[36px] min-h-[370px] overflow-hidden"
+          ? "rounded-b-[36px] min-h-[345px] overflow-hidden"
           : "rounded-b-none min-h-[120px] overflow-visible"
         }`}
       style={{ background: theme.topBg, color: theme.text }}
