@@ -311,22 +311,22 @@ export default function UnifiedOTPFastLogin() {
       className="h-[100dvh] bg-[#fafafa] flex flex-col relative font-sans overflow-hidden"
       style={{ paddingBottom: keyboardInset ? `${keyboardInset + 24}px` : undefined }}
     >
-      {/* Top Red Section */}
+      {/* Top Orange Section */}
       <div className="w-full flex flex-col shrink-0 z-10 drop-shadow-md">
-        <div className="w-full relative overflow-hidden bg-[#b81724] pb-4">
+        <div className="w-full relative overflow-hidden bg-[#FE730E] pb-4">
           {/* Abstract wavy background layers to match the image */}
           <div className="absolute inset-0 z-0">
-             {/* Darker red gradient in the corners */}
-             <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-[#99111c] via-transparent to-transparent opacity-80" />
-             <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-[#99111c] via-transparent to-transparent opacity-80" />
+             {/* Darker orange gradient in the corners */}
+             <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-[#d85600] via-transparent to-transparent opacity-80" />
+             <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-[#d85600] via-transparent to-transparent opacity-80" />
              
              {/* Dotted pattern top left */}
              <div className="absolute -top-10 -left-10 w-40 h-40 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)', backgroundSize: '12px 12px' }} />
 
              {/* Curved shape top right */}
-             <div className="absolute -top-20 -right-10 w-64 h-64 bg-[#d41c2c] rounded-full blur-2xl opacity-40" />
+             <div className="absolute -top-20 -right-10 w-64 h-64 bg-[#ff842c] rounded-full blur-2xl opacity-40" />
              {/* Curved shape bottom left */}
-             <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-[#d41c2c] rounded-full blur-3xl opacity-40" />
+             <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-[#ff842c] rounded-full blur-3xl opacity-40" />
           </div>
 
           {/* Background Icons */}
@@ -366,7 +366,7 @@ export default function UnifiedOTPFastLogin() {
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              className="w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center mb-3 shadow-2xl overflow-hidden border-[2px] border-[#CB202D] ring-[4px] ring-white"
+              className="w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center mb-3 shadow-2xl overflow-hidden border-[2px] border-[#FE730E] ring-[4px] ring-white"
             >
               <img src={logoUrl || zozomenLogo} alt="Logo" className="w-full h-full object-cover rounded-full" />
             </motion.div>
@@ -376,7 +376,7 @@ export default function UnifiedOTPFastLogin() {
               animate={{ opacity: 1, y: 0 }}
               className="text-2xl md:text-3xl font-bold tracking-tight mb-2"
             >
-              OyeChotuu
+              Minutekart
             </motion.h1>
             <div className="flex items-center gap-2 justify-center">
                <div className="h-[1px] w-6 md:w-8 bg-white/70" />
@@ -389,10 +389,10 @@ export default function UnifiedOTPFastLogin() {
           </div>
         </div>
 
-        {/* Wave SVG directly below the red section */}
+        {/* Wave SVG directly below the orange section */}
         <div className="w-full overflow-hidden leading-[0] -mt-0.5">
           <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="w-full h-[40px] md:h-[60px] block">
-            <path d="M0,0 L1440,0 L1440,40 C1200,10 960,10 720,40 C480,80 240,80 0,40 Z" fill="#b81724" />
+            <path d="M0,0 L1440,0 L1440,40 C1200,10 960,10 720,40 C480,80 240,80 0,40 Z" fill="#FE730E" />
           </svg>
         </div>
       </div>
@@ -404,27 +404,27 @@ export default function UnifiedOTPFastLogin() {
           <div className="text-center mb-5">
             <div className="flex items-center justify-center gap-3 mb-1.5">
                <div className="relative w-5 h-5">
-                 <div className="absolute top-1 right-0 w-2.5 h-0.5 bg-[#CB202D] transform rotate-45" />
-                 <div className="absolute top-2.5 right-0 w-3 h-0.5 bg-[#CB202D]" />
-                 <div className="absolute top-4 right-0 w-2.5 h-0.5 bg-[#CB202D] transform -rotate-45" />
+                 <div className="absolute top-1 right-0 w-2.5 h-0.5 bg-[#FE730E] transform rotate-45" />
+                 <div className="absolute top-2.5 right-0 w-3 h-0.5 bg-[#FE730E]" />
+                 <div className="absolute top-4 right-0 w-2.5 h-0.5 bg-[#FE730E] transform -rotate-45" />
                </div>
                <h2 className="text-2xl font-black text-[#1c1c1c]">Welcome!</h2>
                <div className="relative w-5 h-5">
-                 <div className="absolute top-1 left-0 w-2.5 h-0.5 bg-[#CB202D] transform -rotate-45" />
-                 <div className="absolute top-2.5 left-0 w-3 h-0.5 bg-[#CB202D]" />
-                 <div className="absolute top-4 left-0 w-2.5 h-0.5 bg-[#CB202D] transform rotate-45" />
+                 <div className="absolute top-1 left-0 w-2.5 h-0.5 bg-[#FE730E] transform -rotate-45" />
+                 <div className="absolute top-2.5 left-0 w-3 h-0.5 bg-[#FE730E]" />
+                 <div className="absolute top-4 left-0 w-2.5 h-0.5 bg-[#FE730E] transform rotate-45" />
                </div>
             </div>
             <p className="text-sm text-gray-500 font-medium">Login or Signup to continue</p>
-            <div className="h-1 w-8 bg-[#CB202D] mx-auto mt-2 rounded-full" />
+            <div className="h-1 w-8 bg-[#FE730E] mx-auto mt-2 rounded-full" />
           </div>
 
           <form onSubmit={showNameInput ? handleSubmitName : step === 1 ? handleSendOTP : handleVerifyOTP} className="space-y-5">
             {step === 1 ? (
               <div className="space-y-4">
-                <div className="flex items-center border border-gray-200 rounded-xl p-1.5 bg-white focus-within:border-[#CB202D] focus-within:ring-1 focus-within:ring-[#CB202D] transition-all">
-                  <div className="bg-[#FFF0F0] p-2 rounded-lg flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4 text-[#CB202D]" />
+                <div className="flex items-center border border-gray-200 rounded-xl p-1.5 bg-white focus-within:border-[#FE730E] focus-within:ring-1 focus-within:ring-[#FE730E] transition-all">
+                  <div className="bg-[#FFF3EA] p-2 rounded-lg flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#FE730E]" />
                   </div>
                   <div className="flex items-center pl-2 pr-3 border-r border-gray-200">
                     <span className="text-sm text-gray-700 font-semibold">+91</span>
@@ -447,7 +447,7 @@ export default function UnifiedOTPFastLogin() {
                 
                 <div className="flex items-start gap-2 pt-1">
                   <div className="shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4 text-[#CB202D]" />
+                    <ShieldCheck className="w-4 h-4 text-[#FE730E]" />
                   </div>
                   <p className="text-xs text-gray-500 leading-tight font-medium">
                     We will send success notifications and order updates via SMS
@@ -456,9 +456,9 @@ export default function UnifiedOTPFastLogin() {
               </div>
             ) : showNameInput ? (
               <div className="space-y-4">
-                <div className="flex items-center border border-gray-200 rounded-xl p-1.5 bg-white focus-within:border-[#CB202D] focus-within:ring-1 focus-within:ring-[#CB202D] transition-all">
-                  <div className="bg-[#FFF0F0] p-2 rounded-lg flex items-center justify-center shrink-0">
-                    <UserRound className="w-4 h-4 text-[#CB202D]" />
+                <div className="flex items-center border border-gray-200 rounded-xl p-1.5 bg-white focus-within:border-[#FE730E] focus-within:ring-1 focus-within:ring-[#FE730E] transition-all">
+                  <div className="bg-[#FFF3EA] p-2 rounded-lg flex items-center justify-center shrink-0">
+                    <UserRound className="w-4 h-4 text-[#FE730E]" />
                   </div>
                   <input
                     type="text"
@@ -481,7 +481,7 @@ export default function UnifiedOTPFastLogin() {
               <div className="space-y-4">
                 <div className="text-center">
                   <p className="text-xs text-gray-500 font-medium">Enter the 4-digit code sent to</p>
-                  <p className="text-sm text-gray-900 font-bold mt-1">+91 {phoneNumber} <button type="button" onClick={handleEditNumber} className="text-[#CB202D] text-xs ml-1 hover:underline">Edit</button></p>
+                  <p className="text-sm text-gray-900 font-bold mt-1">+91 {phoneNumber} <button type="button" onClick={handleEditNumber} className="text-[#FE730E] text-xs ml-1 hover:underline">Edit</button></p>
                 </div>
                 <div className="flex justify-center gap-2">
                   {[0, 1, 2, 3].map((index) => (
@@ -524,7 +524,7 @@ export default function UnifiedOTPFastLogin() {
                           document.getElementById(`otp-${Math.min(pasteData.length, 3)}`)?.focus();
                         }
                       }}
-                      className="w-12 h-12 text-center text-xl font-bold bg-white border border-gray-200 focus:border-[#CB202D] focus:ring-1 focus:ring-[#CB202D] rounded-xl outline-none transition-all text-gray-900"
+                      className="w-12 h-12 text-center text-xl font-bold bg-white border border-gray-200 focus:border-[#FE730E] focus:ring-1 focus:ring-[#FE730E] rounded-xl outline-none transition-all text-gray-900"
                     />
                   ))}
                 </div>
@@ -538,7 +538,7 @@ export default function UnifiedOTPFastLogin() {
                       type="button"
                       onClick={handleResendOTP}
                       disabled={loading}
-                      className="text-xs font-bold text-[#CB202D] hover:underline disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="text-xs font-bold text-[#FE730E] hover:underline disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       Resend Code
                     </button>
@@ -553,7 +553,7 @@ export default function UnifiedOTPFastLogin() {
               className={`w-full py-3 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 ${
                 isSubmitDisabled
                 ? "bg-gray-100 cursor-not-allowed opacity-50 text-gray-400 shadow-none"
-                : "bg-[#CB202D] hover:bg-[#b01c27] text-white shadow-lg shadow-[#CB202D]/30 active:scale-[0.98]"
+                : "bg-[#FE730E] hover:bg-[#e06208] text-white shadow-lg shadow-[#FE730E]/30 active:scale-[0.98]"
               }`}
             >
               {loading ? (
@@ -572,22 +572,22 @@ export default function UnifiedOTPFastLogin() {
         {step === 1 && (
         <div className="grid grid-cols-3 gap-1 shrink-0 mt-2">
           <div className="flex flex-col items-center text-center">
-            <div className="w-10 h-10 bg-[#FFF0F0] rounded-full flex items-center justify-center mb-1">
-               <ShieldCheck className="w-5 h-5 text-[#CB202D]" />
+            <div className="w-10 h-10 bg-[#FFF3EA] rounded-full flex items-center justify-center mb-1">
+               <ShieldCheck className="w-5 h-5 text-[#FE730E]" />
             </div>
             <h4 className="text-[10px] font-bold text-gray-900 mb-0.5">Safe & Secure</h4>
             <p className="text-[8px] text-gray-500 leading-tight">Your data is protected</p>
           </div>
           <div className="flex flex-col items-center text-center border-l border-r border-gray-200">
-            <div className="w-10 h-10 bg-[#FFF0F0] rounded-full flex items-center justify-center mb-1">
-               <Zap className="w-5 h-5 text-[#CB202D]" />
+            <div className="w-10 h-10 bg-[#FFF3EA] rounded-full flex items-center justify-center mb-1">
+               <Zap className="w-5 h-5 text-[#FE730E]" />
             </div>
             <h4 className="text-[10px] font-bold text-gray-900 mb-0.5">Fast & Easy</h4>
             <p className="text-[8px] text-gray-500 leading-tight">Quick login in seconds</p>
           </div>
           <div className="flex flex-col items-center text-center">
-            <div className="w-10 h-10 bg-[#FFF0F0] rounded-full flex items-center justify-center mb-1">
-               <HeadphonesIcon className="w-5 h-5 text-[#CB202D]" />
+            <div className="w-10 h-10 bg-[#FFF3EA] rounded-full flex items-center justify-center mb-1">
+               <HeadphonesIcon className="w-5 h-5 text-[#FE730E]" />
             </div>
             <h4 className="text-[10px] font-bold text-gray-900 mb-0.5">24/7 Support</h4>
             <p className="text-[8px] text-gray-500 leading-tight">We're here to help</p>
@@ -598,11 +598,11 @@ export default function UnifiedOTPFastLogin() {
         <div className="text-center space-y-1 shrink-0 mt-auto pt-4 mb-2">
           <p className="text-[10px] text-gray-500 font-medium">By continuing, you agree to our</p>
           <div className="flex items-center justify-center gap-1.5 text-[10px] font-semibold">
-            <Link to="/food/user/profile/terms" className="text-[#CB202D] hover:underline">Terms & Conditions</Link>
+            <Link to="/food/user/profile/terms" className="text-[#FE730E] hover:underline">Terms & Conditions</Link>
             <span className="text-gray-400">•</span>
-            <Link to="/food/user/profile/privacy" className="text-[#CB202D] hover:underline">Privacy Policy</Link>
+            <Link to="/food/user/profile/privacy" className="text-[#FE730E] hover:underline">Privacy Policy</Link>
             <span className="text-gray-400">•</span>
-            <Link to="/food/user/profile/support" className="text-[#CB202D] hover:underline">Support</Link>
+            <Link to="/food/user/profile/support" className="text-[#FE730E] hover:underline">Support</Link>
           </div>
         </div>
       </div>
