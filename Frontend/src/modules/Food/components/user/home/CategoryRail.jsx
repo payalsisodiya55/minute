@@ -24,7 +24,7 @@ const CategoryRail = memo(({
           onClick={() => navigate("/user/under-250")}
         >
           <div 
-            className="w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-2xl flex flex-col items-center justify-center p-1 shadow-sm transition-transform group-hover:scale-105 group-active:scale-95"
+            className="w-[58px] h-[58px] sm:w-[68px] sm:h-[68px] rounded-2xl flex flex-col items-center justify-center p-1 shadow-sm transition-transform group-hover:scale-105 group-active:scale-95"
             style={{ backgroundColor: FOOD_VEG_COLOR }}
           >
             <span className="text-[10px] font-bold text-white/90">UNDER</span>
@@ -42,7 +42,7 @@ const CategoryRail = memo(({
             to={`/user/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`}
             className="flex-shrink-0 flex flex-col items-center gap-2 group"
           >
-            <div className="w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full overflow-hidden shadow-sm border border-gray-100 transition-transform group-hover:scale-110">
+            <div className="w-[58px] h-[58px] sm:w-[68px] sm:h-[68px] rounded-full overflow-hidden shadow-sm border border-gray-100 transition-transform group-hover:scale-110">
               <OptimizedImage
                 src={category.image}
                 alt={category.name}
