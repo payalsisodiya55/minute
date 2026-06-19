@@ -15,6 +15,7 @@ export default function RestaurantPreviewCard({
   isFavorite,
   onFavoriteToggle,
   backendOrigin,
+  onMenuLoaded,
 }) {
   const navigate = useNavigate();
   const { addToCart, updateQuantity, getCartItem } = useCart();
@@ -43,6 +44,9 @@ export default function RestaurantPreviewCard({
       const restaurantId = restaurant?.restaurantId || restaurant?._id || restaurant?.id;
       if (!restaurantId) {
         setLoading(false);
+        if (onMenuLoaded) {
+          onMenuLoaded(null, false);
+        }
         return;
       }
       try {
@@ -82,8 +86,14 @@ export default function RestaurantPreviewCard({
         });
 
         setDishes(sorted.slice(0, 3));
+        if (onMenuLoaded) {
+          onMenuLoaded(restaurantId, sorted.length > 0);
+        }
       } catch (err) {
         console.error("Error fetching restaurant menu:", err);
+        if (onMenuLoaded) {
+          onMenuLoaded(restaurantId, false);
+        }
       } finally {
         if (active) setLoading(false);
       }

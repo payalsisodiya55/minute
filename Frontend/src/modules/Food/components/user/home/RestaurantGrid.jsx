@@ -12,7 +12,8 @@ const FoodRestaurantCard = memo(({
   availabilityTick, 
   isFavorite, 
   onFavoriteToggle, 
-  backendOrigin 
+  backendOrigin,
+  onMenuLoaded
 }) => {
   return (
     <div
@@ -31,6 +32,7 @@ const FoodRestaurantCard = memo(({
         isFavorite={isFavorite}
         onFavoriteToggle={onFavoriteToggle}
         backendOrigin={backendOrigin}
+        onMenuLoaded={onMenuLoaded}
       />
     </div>
   );
@@ -51,6 +53,15 @@ const RestaurantGrid = memo(({
   loadMoreRestaurants,
   restaurantLoadMoreRef
 }) => {
+  const [hasDishesMap, setHasDishesMap] = React.useState({});
+  
+  const handleMenuLoaded = React.useCallback((id, hasDishes) => {
+    setHasDishesMap(prev => {
+      if (prev[id] === hasDishes) return prev;
+      return { ...prev, [id]: hasDishes };
+    });
+  }, []);
+
   React.useEffect(() => {
     if (!restaurantLoadMoreRef || !restaurantLoadMoreRef.current || !hasMoreRestaurants) return;
     
@@ -67,12 +78,26 @@ const RestaurantGrid = memo(({
     };
   }, [hasMoreRestaurants, loadMoreRestaurants, restaurantLoadMoreRef]);
 
+  const activeFilteredRestaurants = React.useMemo(() => {
+    return filteredRestaurants.filter((r) => {
+      const id = r.restaurantId || r._id || r.id;
+      return hasDishesMap[id] !== false;
+    });
+  }, [filteredRestaurants, hasDishesMap]);
+
+  const activeVisibleRestaurants = React.useMemo(() => {
+    return visibleRestaurants.filter((r) => {
+      const id = r.restaurantId || r._id || r.id;
+      return hasDishesMap[id] !== false;
+    });
+  }, [visibleRestaurants, hasDishesMap]);
+
   return (
     <section className="content-auto space-y-0 pb-8 pt-3 sm:pt-4 md:pb-10 lg:pt-6">
       <div className="mb-4 px-4">
         <div className="flex flex-col gap-1">
           <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
-            {filteredRestaurants.length} Restaurants Delivering to You
+            {activeFilteredRestaurants.length} Restaurants Delivering to You
           </h2>
           <span className="text-sm font-medium text-gray-500">Featured</span>
         </div>
@@ -100,7 +125,7 @@ const RestaurantGrid = memo(({
             isLoadingFilterResults || loadingRestaurants ? "opacity-50" : "opacity-100"
           }`}
         >
-          {visibleRestaurants.map((restaurant, index) => (
+          {activeVisibleRestaurants.map((restaurant, index) => (
             <FoodRestaurantCard
               key={restaurant?.id || restaurant?._id || restaurant?.slug || index}
               restaurant={restaurant}
@@ -110,6 +135,7 @@ const RestaurantGrid = memo(({
               isFavorite={isFavorite}
               onFavoriteToggle={onFavoriteToggle}
               backendOrigin={backendOrigin}
+              onMenuLoaded={handleMenuLoaded}
             />
           ))}
         </div>
