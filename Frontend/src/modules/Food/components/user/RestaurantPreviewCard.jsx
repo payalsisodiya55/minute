@@ -260,8 +260,8 @@ export default function RestaurantPreviewCard({
         {loading ? (
           <div className="flex gap-3 overflow-x-auto scrollbar-hide py-1">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex-shrink-0 w-[145px] sm:w-[155px] flex flex-col gap-1.5">
-                <div className="w-full h-[110px] sm:h-[120px] rounded-xl bg-gray-100 dark:bg-neutral-800 animate-pulse" />
+              <div key={i} className="flex-shrink-0 w-[130px] sm:w-[140px] flex flex-col gap-1.5">
+                <div className="w-full h-[98px] sm:h-[108px] rounded-xl bg-gray-100 dark:bg-neutral-800 animate-pulse" />
                 <div className="h-3 w-3/4 bg-gray-100 dark:bg-neutral-800 animate-pulse rounded" />
                 <div className="h-3 w-1/2 bg-gray-100 dark:bg-neutral-800 animate-pulse rounded" />
               </div>
@@ -281,10 +281,10 @@ export default function RestaurantPreviewCard({
               return (
                 <div
                   key={dish.id}
-                  className="flex-shrink-0 w-[145px] sm:w-[155px] flex flex-col gap-1.5 relative group/dish"
+                  className="flex-shrink-0 w-[130px] sm:w-[140px] flex flex-col gap-1.5 relative group/dish"
                 >
                   {/* Dish image container */}
-                  <div className="relative w-full h-[110px] sm:h-[120px] rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100/50 dark:border-gray-800/50 overflow-hidden">
+                  <div className="relative w-full h-[98px] sm:h-[108px] rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100/50 dark:border-gray-800/50 overflow-hidden">
                     {dish.image ? (
                       <img
                         src={dish.image}
@@ -308,7 +308,7 @@ export default function RestaurantPreviewCard({
                     {/* Plus Button or Quantity Selector Overlay */}
                     {quantity > 0 ? (
                       <div
-                        className="absolute bottom-1.5 right-1.5 h-6 rounded-full bg-white shadow-md flex items-center justify-between border border-[#FE730E]/20 px-1 gap-1"
+                        className="absolute bottom-1.5 right-1.5 h-8 rounded-full bg-white shadow-md flex items-center justify-between border border-[#FE730E]/20 px-1.5 gap-1.5"
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
@@ -317,28 +317,28 @@ export default function RestaurantPreviewCard({
                         <button
                           type="button"
                           onClick={(e) => handleDecreaseQuantity(dish, e)}
-                          className="w-4.5 h-4.5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
+                          className="w-5.5 h-5.5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
                         >
-                          <Minus className="h-2.5 w-2.5" strokeWidth={3.5} />
+                          <Minus className="h-3 w-3" strokeWidth={3.5} />
                         </button>
-                        <span className="text-[10px] font-black text-gray-950 min-w-[8px] text-center select-none">
+                        <span className="text-[11px] font-black text-gray-950 min-w-[10px] text-center select-none">
                           {quantity}
                         </span>
                         <button
                           type="button"
                           onClick={(e) => handleAddToCart(dish, e)}
-                          className="w-4.5 h-4.5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
+                          className="w-5.5 h-5.5 flex items-center justify-center text-[#FE730E] hover:opacity-80 transition-all active:scale-75"
                         >
-                          <Plus className="h-2.5 w-2.5" strokeWidth={3.5} />
+                          <Plus className="h-3 w-3" strokeWidth={3.5} />
                         </button>
                       </div>
                     ) : (
                       <button
                         type="button"
                         onClick={(e) => handleAddToCart(dish, e)}
-                        className="absolute bottom-1.5 right-1.5 w-6 h-6 rounded-full bg-white shadow-md flex items-center justify-center border border-[#FE730E]/20 transition-all hover:scale-105 active:scale-90"
+                        className="absolute bottom-1.5 right-1.5 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center border border-[#FE730E]/20 transition-all hover:scale-105 active:scale-90"
                       >
-                        <Plus className="h-3 w-3 text-[#FE730E]" strokeWidth={3.5} />
+                        <Plus className="h-4 w-4 text-[#FE730E]" strokeWidth={3.5} />
                       </button>
                     )}
                   </div>
