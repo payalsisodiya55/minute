@@ -74,10 +74,10 @@ export default function BottomNavigation() {
   if (isKeyboardOpen) return null
 
   return (
-    <div className={`md:hidden fixed bottom-4 left-4 right-4 z-50 transition-all duration-300 ease-in-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-28 opacity-0 pointer-events-none"}`}>
+    <>
       <DraggableModuleSwitcher />
-
-      <div className="bg-white dark:bg-[#1a1a1a] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-gray-800 px-3 py-1.5 flex items-center justify-between gap-1">
+      <div className={`md:hidden fixed bottom-4 left-4 right-4 z-50 transition-all duration-300 ease-in-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-28 opacity-0 pointer-events-none"}`}>
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-gray-800 px-3 py-1.5 flex items-center justify-between gap-1">
         {/* Delivery Tab */}
         <Link
           to="/food/user"
@@ -137,6 +137,7 @@ export default function BottomNavigation() {
         </Link>
       </div>
     </div>
+    </>
   )
 }
 
