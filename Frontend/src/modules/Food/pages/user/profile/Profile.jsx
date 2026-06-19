@@ -457,7 +457,7 @@ export default function Profile() {
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ duration: 0.3, type: "spring", stiffness: 300 }}>
-                <Avatar className="h-16 w-16 bg-red-100 border-0">
+                <Avatar className="h-16 w-16 bg-orange-100 border-0">
                   {userProfile?.profileImage && (
                     <AvatarImage
                       src={
@@ -468,7 +468,7 @@ export default function Profile() {
                       alt={displayName}
                     />
                   )}
-                  <AvatarFallback className="bg-red-100 text-red-600 text-2xl font-semibold">
+                  <AvatarFallback className="bg-orange-100 text-orange-600 text-2xl font-semibold">
                     {avatarInitial}
                   </AvatarFallback>
                 </Avatar>
@@ -525,7 +525,7 @@ export default function Profile() {
                     <motion.span
                       className={`text-xs font-medium px-2 py-1 rounded ${isComplete
                           ? "bg-green-100 text-green-700 border border-green-300"
-                          : "bg-red-50 text-red-700"
+                          : "bg-orange-50 text-orange-700"
                         }`}
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.2 }}>
@@ -664,7 +664,7 @@ export default function Profile() {
                       e.stopPropagation();
                       handleShareReferral();
                     }}
-                    className="inline-flex items-center gap-1 text-xs text-[#cc2532] font-medium ml-2 px-2 py-1 rounded-md"
+                    className="inline-flex items-center gap-1 text-xs text-[#FE730E] font-medium ml-2 px-2 py-1 rounded-md"
                     disabled={!referralLink}>
                     <Share2 className="h-3.5 w-3.5" />
                     Refer
@@ -786,7 +786,7 @@ export default function Profile() {
         {/* Food Section */}
         <div className="mb-3">
           <div className="flex items-center gap-2 mb-2 px-1">
-            <div className="w-1 h-4 bg-[#cc2532] rounded"></div>
+            <div className="w-1 h-4 bg-[#FE730E] rounded"></div>
             <h3 className="text-base font-semibold text-gray-900 dark:text-white">
               Food
             </h3>
@@ -851,7 +851,7 @@ export default function Profile() {
         {/* Dining Section */}
         <div className="mb-3">
           <div className="flex items-center gap-2 mb-2 px-1">
-            <div className="w-1 h-4 bg-[#cc2532] rounded"></div>
+            <div className="w-1 h-4 bg-[#FE730E] rounded"></div>
             <h3 className="text-base font-semibold text-gray-900 dark:text-white">
               Dining
             </h3>
@@ -1002,7 +1002,7 @@ export default function Profile() {
         {/* More Section */}
         <div className="mb-8 pb-8">
           <div className="flex items-center gap-2 mb-2 px-1">
-            <div className="w-1 h-4 bg-[#cc2532] rounded"></div>
+            <div className="w-1 h-4 bg-[#FE730E] rounded"></div>
             <h3 className="text-base font-semibold text-gray-900 dark:text-white">
               More
             </h3>
@@ -1241,7 +1241,7 @@ export default function Profile() {
               </Button>
               <Button
                 type="button"
-                className="flex-1 rounded-xl bg-[#CB202D] hover:bg-[#b01c27] text-white"
+                className="flex-1 rounded-xl bg-[#FE730E] hover:bg-[#e06208] text-white"
                 onClick={() => {
                   setLogoutConfirmOpen(false);
                   handleLogout();
@@ -1315,12 +1315,12 @@ export default function Profile() {
                 setAppearanceOpen(false);
               }}
               className={`w-full p-3 rounded-xl border-2 transition-all flex items-center gap-3 ${theme === "light"
-                  ? "border-[#cc2532] bg-[#cc2532]/5"
+                  ? "border-[#FE730E] bg-[#FE730E]/5"
                   : "border-slate-200 hover:border-slate-300"
                 }`}>
               <div
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${theme === "light"
-                    ? "border-[#cc2532]"
+                    ? "border-[#FE730E]"
                     : "border-slate-300"
                   }`}>
                 {theme === "light" && (
@@ -1343,12 +1343,12 @@ export default function Profile() {
                 setAppearanceOpen(false);
               }}
               className={`w-full p-3 rounded-xl border-2 transition-all flex items-center gap-3 ${theme === "dark"
-                  ? "border-[#cc2532] bg-[#cc2532]/5"
+                  ? "border-[#FE730E] bg-[#FE730E]/5"
                   : "border-slate-700 hover:border-slate-600"
                 }`}>
               <div
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${theme === "dark"
-                    ? "border-[#cc2532]"
+                    ? "border-[#FE730E]"
                     : "border-slate-600"
                   }`}>
                 {theme === "dark" && (
