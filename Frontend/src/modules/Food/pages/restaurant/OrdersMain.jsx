@@ -1290,7 +1290,7 @@ export default function OrdersMain() {
     normalizedBusinessType.includes("bakery");
   const tabsToRender = [
     ...filterTabs.slice(0, 1),
-    { id: "custom-cake", label: "Custom Cake" },
+    // { id: "custom-cake", label: "Custom Cake" },
     ...filterTabs.slice(1),
   ];
   const [isReverifying, setIsReverifying] = useState(false);

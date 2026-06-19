@@ -631,6 +631,58 @@ export default function ItemDetailsPage() {
       return
     }
 
+    // Resolve categoryId from fetched categories (so FoodItem stores categoryId efficiently).
+    const matchedCategory = Array.isArray(categories)
+      ? categories.find((c) => String(c?.id || "") === String(selectedCategoryId || ""))
+      : null
+    const categoryId = matchedCategory?.id || matchedCategory?._id || null
+    const categoryName = matchedCategory?.name || category || ""
+
+    if (!categoryId) {
+      toast.error("Please select an approved category first")
+      setIsCategoryPopupOpen(true)
+      return
+    }
+
+    if (
+      matchedCategory?.foodTypeScope &&
+      matchedCategory.foodTypeScope !== "Both" &&
+      matchedCategory.foodTypeScope !== foodType
+    ) {
+      toast.error(`This ${matchedCategory.foodTypeScope} category cannot accept ${foodType} food`)
+      return
+    }
+
+    if (!preparationTime || String(preparationTime).trim() === "") {
+      toast.error("Please select a preparation time")
+      return
+    }
+
+    const normalizedVariants = variants
+      .map((variant) => ({
+        persistedId: String(variant.persistedId || "").trim(),
+        name: String(variant.name || "").trim(),
+        price: Number(variant.price),
+      }))
+      .filter((variant) => variant.name || variant.persistedId || variant.price)
+
+    if (normalizedVariants.some((variant) => !variant.name)) {
+      toast.error("Each variant must have a name")
+      return
+    }
+
+    if (normalizedVariants.some((variant) => !Number.isFinite(variant.price) || variant.price <= 0)) {
+      toast.error("Each variant price must be greater than 0")
+      return
+    }
+
+    const hasVariants = normalizedVariants.length > 0
+    const parsedBasePrice = Number(basePrice)
+    if (!hasVariants && (!basePrice || String(basePrice).trim() === "" || isNaN(parsedBasePrice) || parsedBasePrice <= 0)) {
+      toast.error("Please enter a valid base price greater than 0")
+      return
+    }
+
     try {
       setUploadingImages(true)
 
@@ -702,64 +754,6 @@ export default function ItemDetailsPage() {
       debugLog('Newly uploaded URLs:', uploadedImageUrls.length, uploadedImageUrls)
       debugLog('Total image URLs to save:', allImageUrls.length, allImageUrls)
       debugLog('==========================')
-
-      // Resolve categoryId from fetched categories (so FoodItem stores categoryId efficiently).
-      const matchedCategory = Array.isArray(categories)
-        ? categories.find((c) => String(c?.id || "") === String(selectedCategoryId || ""))
-        : null
-      const categoryId = matchedCategory?.id || matchedCategory?._id || null
-      const categoryName = matchedCategory?.name || category || ""
-
-      if (!categoryId) {
-        toast.error("Please select an approved category first")
-        setIsCategoryPopupOpen(true)
-        setUploadingImages(false)
-        return
-      }
-
-      if (
-        matchedCategory?.foodTypeScope &&
-        matchedCategory.foodTypeScope !== "Both" &&
-        matchedCategory.foodTypeScope !== foodType
-      ) {
-        toast.error(`This ${matchedCategory.foodTypeScope} category cannot accept ${foodType} food`)
-        setUploadingImages(false)
-        return
-      }
-
-      const normalizedVariants = variants
-        .map((variant) => ({
-          persistedId: String(variant.persistedId || "").trim(),
-          name: String(variant.name || "").trim(),
-          price: Number(variant.price),
-        }))
-        .filter((variant) => variant.name || variant.persistedId || variant.price)
-
-      if (!preparationTime || String(preparationTime).trim() === "") {
-        toast.error("Please select a preparation time")
-        setUploadingImages(false)
-        return
-      }
-
-      if (normalizedVariants.some((variant) => !variant.name)) {
-        toast.error("Each variant must have a name")
-        setUploadingImages(false)
-        return
-      }
-
-      if (normalizedVariants.some((variant) => !Number.isFinite(variant.price) || variant.price <= 0)) {
-        toast.error("Each variant price must be greater than 0")
-        setUploadingImages(false)
-        return
-      }
-
-      const hasVariants = normalizedVariants.length > 0
-      const parsedBasePrice = Number(basePrice)
-      if (!hasVariants && (!Number.isFinite(parsedBasePrice) || parsedBasePrice < 0)) {
-        toast.error("Please enter a valid base price")
-        setUploadingImages(false)
-        return
-      }
 
       const variantPayload = normalizedVariants.map((variant) => ({
         ...(variant.persistedId ? { _id: variant.persistedId } : {}),
@@ -1034,7 +1028,7 @@ export default function ItemDetailsPage() {
           {/* Category Selector */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
-              Category
+              Category <span className="text-red-500">*</span>
             </label>
             <button
               onClick={() => setIsCategoryPopupOpen(true)}
@@ -1050,7 +1044,7 @@ export default function ItemDetailsPage() {
           {/* Item Name */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
-              Item name
+              Item name <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <input
@@ -1129,12 +1123,12 @@ export default function ItemDetailsPage() {
           {/* Item Price */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
-              Item price
+              Item price <span className="text-red-500">*</span>
             </label>
             <div className="space-y-3">
               {variants.length === 0 ? (
                 <div className="relative">
-                  <label className="block text-xs text-gray-600 mb-1">Base price</label>
+                  <label className="block text-xs text-gray-600 mb-1">Base price <span className="text-red-500">*</span></label>
                   <div className="relative">
                     <input
                       type="text"
@@ -1189,7 +1183,7 @@ export default function ItemDetailsPage() {
                       <div key={variant.localId} className="grid grid-cols-[1fr_auto] gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs text-gray-600 mb-1">Variant name</label>
+                            <label className="block text-xs text-gray-600 mb-1">Variant name <span className="text-red-500">*</span></label>
                             <input
                               type="text"
                               value={variant.name}
@@ -1199,7 +1193,7 @@ export default function ItemDetailsPage() {
                             />
                           </div>
                           <div>
-                            <label className="block text-xs text-gray-600 mb-1">Variant price</label>
+                            <label className="block text-xs text-gray-600 mb-1">Variant price <span className="text-red-500">*</span></label>
                             <div className="relative">
                               <input
                                 type="text"
@@ -1237,7 +1231,7 @@ export default function ItemDetailsPage() {
 
               {/* Preparation Time */}
               <div className="relative">
-                <label className="block text-xs text-gray-600 mb-1">Preparation Time</label>
+                <label className="block text-xs text-gray-600 mb-1">Preparation Time <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <select
                     value={preparationTime}
